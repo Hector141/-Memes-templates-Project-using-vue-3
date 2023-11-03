@@ -92,19 +92,50 @@ p{
 }
 
 .download-button {
-  margin: 50px;
-  padding: 10px 20px;
-  background-color: #007f8e;
-  color: #fff;
   text-decoration: none;
-  border-radius: 5px;
-  font-weight: bold;
-  border: 2px solid black;
-  transition: background-color 0.3s;
+  top: 48rem;
+  position: absolute;
+  padding: 20px 60px;
+  text-transform: uppercase;
+  border-radius: 10px;
+  overflow: hidden;
+  transition: all 0.3s;
+  border: 2px solid #05ff04;
+  background: linear-gradient(
+    to right,
+    rgba(27, 253, 156, 0.1) 1%,
+    transparent 40%,
+    transparent 60%,
+    rgba(27, 253, 156, 0.1) 100%
+  );
+  color: #05ff04;
+  box-shadow: inset 0 0 10px rgba(27, 253, 156, 0.4),
+    0 0 9px 3px rgba(27, 253, 156, 0.1);
 }
 
-.download-button:hover {
-  background-color: #00565f;
+
+.download-button::before {
+  content: "";
+  position: absolute;
+  left: -10%;
+  width: 80px;
+  height: 100%;
+  top: 0;
+  transition: all 0.4s ease-in-out;
+  background: linear-gradient(
+    to right,
+    transparent 1%,
+    rgba(27, 253, 156, 0.1) 40%,
+    rgba(27, 253, 156, 0.1) 60%,
+    transparent 100%
+  );
+}
+.download-button:hover::before {
+  transform: translate(280px);
+}
+
+.dowload-button:hover {
+  cursor: pointer;
 }
 
 .button {
@@ -171,6 +202,9 @@ p{
 
   #meme-detail {
     overflow: hidden;
+  }
+  .download-button {
+    top: 38rem;
   }
 }
 </style>

@@ -112,7 +112,9 @@ export default {
         />
       </div>
       <router-link class="link" to="/favorites">
-        <button class="btn btn--stripe">Favorites</button>
+        <button class="favPage-button">
+        Favorites
+        </button>
       </router-link>
     </div>
     
@@ -147,7 +149,7 @@ export default {
         :disabled="currentPage === 1"
         class="page-button"
       >
-        &lt;
+      <i class="bx bxs-left-arrow"></i>
       </button>
       <span class="page-numbers">
         <button
@@ -164,7 +166,7 @@ export default {
         :disabled="currentPage === totalPages"
         class="page-button"
       >
-        >
+      <i class="bx bxs-right-arrow"></i>
       </button>
     </div>
   </div>
@@ -247,31 +249,31 @@ export default {
 }
 
 .pagination button {
-  background-color: #004a56c2;
+  background-color: #111;
+  border-radius: 50%;
   font-weight: bold;
   height: 30px;
   width: 30px;
   border: none;
   cursor: pointer;
-  color: #fff;
+  color: #05ff04;
+  margin: 5px;
 }
 
 .page-button {
   height: 30px;
   width: 30px;
   cursor: pointer;
-  color: #fff;
 }
 
 .page-numbers button.active {
-  background-color: #007f8e;
   height: 35px;
   width: 35px;
-  color: #fff;
+  border: #05FF04 1px solid;
 }
 
 .page-button:hover {
-  background-color: #007f8e;
+  background-color: black;
 }
 
 .page-button:disabled {
@@ -317,72 +319,53 @@ export default {
   width: 400px;
 }
 
-.btn {
+.link {
+  text-decoration: none;
+  color: #05ff04;
+}
+.favPage-button {
   position: absolute;
-  cursor: pointer;
-  right: 10px;
+  top: 10px;
+  right: 40px;
+  padding: 20px 60px;
   text-transform: uppercase;
-  padding: 16px 36px 22px;
-  background-color: #fff;
-  color: black;
-  font-weight: bold;
-  border: 2px solid #666;
-  border-radius: 6px;
-  margin-bottom: 16px;
-  transition: all 0.5s ease;
-}
-
-.btn--stripe {
+  border-radius: 10px;
   overflow: hidden;
-  margin-right: 100px;
-  margin-top: -35px;
+  transition: all 0.3s;
+  border: 2px solid #05ff04;
+  background: linear-gradient(
+    to right,
+    rgba(27, 253, 156, 0.1) 1%,
+    transparent 40%,
+    transparent 60%,
+    rgba(27, 253, 156, 0.1) 100%
+  );
+  color: #05ff04;
+  box-shadow: inset 0 0 10px rgba(27, 253, 156, 0.4),
+    0 0 9px 3px rgba(27, 253, 156, 0.1);
 }
-
-.btn--stripe:after {
+.favPage-button::before {
   content: "";
-  display: block;
-  height: 7px;
-  width: 100%;
-  background-image: repeating-linear-gradient(
-    45deg,
-    #666,
-    #666 1px,
-    transparent 2px,
-    transparent 5px
-  );
-  -webkit-backface-visibility: hidden;
-  backface-visibility: hidden;
-  border-top: 1px solid grey;
   position: absolute;
-  left: 0;
-  bottom: 0;
-  background-size: 7px 7px;
-}
-
-.btn--stripe:hover {
-  background-color: #bdbdbd8a;
-  color: #000000;
-  border-color: grey;
-}
-
-.btn--stripe:hover:after {
-  background-image: repeating-linear-gradient(
-    45deg,
-    gray,
-    gray 1px,
-    transparent 2px,
-    transparent 5px
+  left: -10%;
+  width: 80px;
+  height: 100%;
+  top: 0;
+  transition: all 0.4s ease-in-out;
+  background: linear-gradient(
+    to right,
+    transparent 1%,
+    rgba(27, 253, 156, 0.1) 40%,
+    rgba(27, 253, 156, 0.1) 60%,
+    transparent 100%
   );
-  border-top: 1px solid grey;
-  animation: stripe-slide 12s infinite linear forwards;
 }
 
-@keyframes stripe-slide {
-  0% {
-    background-position: 0% 0;
-  }
-  100% {
-    background-position: 100% 0;
-  }
+.favPage-button:hover {
+  cursor: pointer;
+}
+
+.favPage-button:hover::before {
+  transform: translate(140px);
 }
 </style>

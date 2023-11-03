@@ -28,7 +28,7 @@ export default {
     <div class="NavBar">
       <h1>Favorites Memes</h1>
       <router-link class="link" to="/">
-        <button class="btn btn--stripe">Home</button>
+        <button class="button">Home</button>
       </router-link>
     </div>
 
@@ -39,16 +39,23 @@ export default {
       <div
         v-for="(meme, index) in favoriteMemes"
         :key="index"
-        class="favorite-meme"
+        class="meme-border"
       >
-        <img :src="meme.url" :alt="meme.name" class="favorite-meme-image" />
-        <p class="favorite-meme-name">{{ meme.name }}</p>
-        <button @click="toggleFavorite(meme)" class="favorite-button">
-          {{ isFavorite(meme) ? "❤️ " : "🤍 " }}
-        </button>
+        <div class="favorite-meme">
+          <router-link
+            :to="{ name: 'MemeDetail', params: { id: meme.id } }"
+            class="meme-link"
+          >
+            <img :src="meme.url" :alt="meme.name" class="favorite-meme-image" />
+            <p class="favorite-meme-name">{{ meme.name }}</p>
+          </router-link>
+          <button @click="toggleFavorite(meme)" class="favorite-button">
+            {{ isFavorite(meme) ? "❤️ " : "🤍 " }}
+          </button>
+        </div>
       </div>
     </div>
-    <div v-else>
+    <div class="no-meme" v-else>
       <p>You don't have favorite memes.</p>
     </div>
   </div>
@@ -57,27 +64,55 @@ export default {
 <style scoped>
 .NavBar {
   display: flex;
+  color: #05ff04;
+}
+
+.NavBar h1 {
+  margin-left: 50px;
+}
+
+#favorite-memes {
+  height: 100%;
 }
 .favorite-memes-grid {
+  margin: 100px 20px 20px 20px;
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 20px;
 }
 
+.no-meme {
+  text-align: center;
+}
+p {
+  margin-top: 100px;
+  font-size: 23px;
+  color: #05ff04;
+}
+.meme-link {
+  text-decoration: none;
+  color: #05ff04;
+}
 .favorite-meme {
-  background-color: #f2f2f2;
-  border-radius: 5px;
+  background: linear-gradient(to bottom, #000000, #111);
+  border-radius: 15px;
   overflow: hidden;
   box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
   display: flex;
+  position: relative;
   flex-direction: column;
-  position: relative; /* Para el botón de favorito */
+  height: 100%;
 }
 
+.meme-border {
+  border: 2px solid #05ff04;
+  border-radius: 15px;
+  padding: 10px;
+}
 .favorite-meme-image {
+  width: 100%;
   max-width: 100%;
-  max-height: 400px;
-  width: auto;
+  max-height: 310px;
   height: auto;
 }
 
@@ -94,77 +129,57 @@ export default {
   position: absolute;
   right: 20px;
   top: 20px;
-  transition: transform 0.3s; /* Efecto de escala en hover */
+  transition: transform 0.3s;
 }
 
 .favorite-button:hover {
   transform: scale(1.2);
 }
 
-.btn {
-  position: absolute;
-  cursor: pointer;
-  right: 10px;
+.button {
+  top: 20px;
+  right: 100px;
+  padding: 20px 60px;
   text-transform: uppercase;
-  padding: 16px 36px 22px;
-  background-color: #fff;
-  color: black;
-  font-weight: bold;
-  border: 2px solid #666;
-  border-radius: 6px;
-  margin-bottom: 16px;
-  transition: all 0.5s ease;
-}
-
-.btn--stripe {
-  overflow: hidden;
-  margin-right: 100px;
-}
-
-.btn--stripe:after {
-  content: "";
-  display: block;
-  height: 7px;
-  width: 100%;
-  background-image: repeating-linear-gradient(
-    45deg,
-    #666,
-    #666 1px,
-    transparent 2px,
-    transparent 5px
-  );
-  -webkit-backface-visibility: hidden;
-  backface-visibility: hidden;
-  border-top: 1px solid grey;
   position: absolute;
-  left: 0;
-  bottom: 0;
-  background-size: 7px 7px;
-}
-
-.btn--stripe:hover {
-  background-color: #bdbdbd8a;
-  border-color: grey;
-}
-
-.btn--stripe:hover:after {
-  background-image: repeating-linear-gradient(
-    45deg,
-    gray,
-    gray 1px,
-    transparent 2px,
-    transparent 5px
+  border-radius: 10px;
+  overflow: hidden;
+  transition: all 0.3s;
+  border: 2px solid #05ff04;
+  background: linear-gradient(
+    to right,
+    rgba(27, 253, 156, 0.1) 1%,
+    transparent 40%,
+    transparent 60%,
+    rgba(27, 253, 156, 0.1) 100%
   );
-  border-top: 1px solid grey;
-  animation: stripe-slide 12s infinite linear forwards;
+  color: #05ff04;
+  box-shadow: inset 0 0 10px rgba(27, 253, 156, 0.4),
+    0 0 9px 3px rgba(27, 253, 156, 0.1);
 }
 
-@keyframes stripe-slide {
-  0% {
-    background-position: 0% 0;
-  }
-  100% {
-    background-position: 100% 0;
-  }
+.button::before {
+  content: "";
+  position: absolute;
+  left: -10%;
+  width: 80px;
+  height: 100%;
+  top: 0;
+  transition: all 0.4s ease-in-out;
+  background: linear-gradient(
+    to right,
+    transparent 1%,
+    rgba(27, 253, 156, 0.1) 40%,
+    rgba(27, 253, 156, 0.1) 60%,
+    transparent 100%
+  );
+}
+
+.button:hover {
+  cursor: pointer;
+}
+
+.button:hover::before {
+  transform: translate(140px);
 }
 </style>

@@ -115,19 +115,31 @@ export default {
         <button class="btn btn--stripe">Favorites</button>
       </router-link>
     </div>
+    
+
     <div class="meme-container">
     <div class="meme-grid" v-if="filteredMemes.length > 0">
-      <div v-for="(meme, index) in pagedMemes" :key="index" class="meme">
-        <img :src="meme.url" :alt="meme.name" class="meme-image" />
-        <p class="meme-name">{{ meme.name }}</p>
-        <button @click="toggleFavorite(meme)" class="favorite-button">
+      <div v-for="(meme, index) in pagedMemes" :key="index" class="meme-border">
+        <div class="meme">
+          <button @click="toggleFavorite(meme)" class="favorite-button">
           {{ isFavorite(meme) ? "❤️" : "🤍" }}
         </button>
+        <router-link
+            :to="{ name: 'MemeDetail', params: { id: meme.id } }"
+            class="meme-link"
+          >
+        <img :src="meme.url" :alt="meme.name" class="meme-image" />
+        <p class="meme-name">{{ meme.name }}</p>
+       
+        </router-link>
       </div>
     </div>
+    </div>
+    
     <div v-else>
       <p>Cargando memes...</p>
     </div>
+    
   </div>
     <div class="pagination" v-if="filteredMemes.length > itemsPerPage">
       <button
@@ -160,28 +172,47 @@ export default {
 
 <style scoped>
 /* ... estilos principales ... */
+
+.meme-container{
+  justify-content: center;
+  align-items: center;
+  margin: auto;
+  display: flex;
+}
 .meme-grid {
   height: 100%;
-  width: 100%;
+  width: 99%;
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 20px;
   user-select: none;
 }
 
+.meme-border{
+  border: 2px solid #05FF04;
+  border-radius: 15px;
+  padding: 10px;
+  
+}
 .meme {
-  background-color: #f2f2f2;
-  border-radius: 5px;
+  background: linear-gradient(to bottom, #000000, #111);
+  border-radius: 15px;
   overflow: hidden;
   box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
   display: flex;
   flex-direction: column;
+  height: 100%;
 }
 
-.meme-image {
+.meme-link{
+  text-decoration: none;
+  color: black;
   max-width: 100%;
-  max-height: 340px;
-  width: auto;
+}
+.meme-image {
+  width: 100%;
+  max-width: 100%;
+  max-height: 310px;
   height: auto;
 }
 
@@ -189,6 +220,7 @@ export default {
   margin-top: 10px;
   font-weight: bold;
   text-align: center;
+  color: #05FF04;
 }
 
 .favorite-button {
@@ -199,6 +231,7 @@ export default {
   margin: 20px;
   transition: all 0.3s ease;
   transition-delay: 0.2s;
+  z-index: 1000;
 }
 
 .favorite-button:hover {
@@ -210,6 +243,7 @@ export default {
   text-align: center;
   margin-top: 15px;
   user-select: none;
+  padding-bottom: 20px;
 }
 
 .pagination button {
@@ -256,6 +290,7 @@ export default {
 
 .title {
   transform: translate(60%);
+  color: #05FF04;
 }
 
 .search-input-container {

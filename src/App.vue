@@ -12,6 +12,12 @@ export default {
 
 <style>
 body {
-  background-color: rgba(6, 5, 63, 0.171);
+  margin: 0;
+  padding: 0;
+  background: linear-gradient(to bottom, #000000, #470544);
+}
+
+#app {
+  min-height: 100vh;
 }
 </style>
